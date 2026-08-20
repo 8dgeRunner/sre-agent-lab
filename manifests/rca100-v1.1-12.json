@@ -1,0 +1,21 @@
+{
+  "dataset": "RCA100",
+  "version": "v1.1",
+  "license": "CC BY-NC-SA 4.0",
+  "selection": "deterministic stratified representative set",
+  "source_mapping": "https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval/-/raw/main/RCA100/answer_key/mapping.json",
+  "cases": [
+    {"task_id": "t001", "case_id": "F014-httpError5xx.tbdh9alum56k56pj9864sdn2i0", "fault_type": "httpError5xx", "injector": "fault-service", "live_status": "implemented"},
+    {"task_id": "t004", "case_id": "F006-trafficSurge.p49s40jn055vde1btue9mht2n6", "fault_type": "trafficSurge", "injector": "fault-service", "live_status": "candidate"},
+    {"task_id": "t005", "case_id": "F026-nodeCpuHigh.8hfc7fqshh07hc3c02k5tuive4", "fault_type": "nodeCpuHigh", "injector": "chaos-mesh", "live_status": "candidate"},
+    {"task_id": "t006", "case_id": "F016-rateLimiting.l5nv3hueg91uuaen5d6t5e41n6", "fault_type": "rateLimiting", "injector": "fault-service", "live_status": "candidate"},
+    {"task_id": "t009", "case_id": "F007-memoryPressure.8gsm3b96qt21valn8bpanm85v4", "fault_type": "memoryPressure", "injector": "chaos-mesh", "live_status": "candidate"},
+    {"task_id": "t026", "case_id": "F039-resourceLimitMisconfig.pb4qu5i6dp3f9bcscapmn74l85", "fault_type": "resourceLimitMisconfig", "injector": "kubernetes-api", "live_status": "candidate"},
+    {"task_id": "t033", "case_id": "F036-replicaScaleDown.tht1u6gu7l0af4uk2oclppopt7", "fault_type": "replicaScaleDown", "injector": "kubernetes-api", "live_status": "candidate"},
+    {"task_id": "t039", "case_id": "F056-networkPolicyIsolation.dt80od6ml90vp4v592nmta72b2", "fault_type": "networkPolicyIsolation", "injector": "kubernetes-api", "live_status": "candidate"},
+    {"task_id": "t066", "case_id": "F057-dnsResolutionFailure.uaobum57mt5i15b1ja53soe203", "fault_type": "dnsResolutionFailure", "injector": "chaos-mesh", "live_status": "candidate"},
+    {"task_id": "t074", "case_id": "F050-podCrashLoop.japc44icfp60nbl881fllehs27", "fault_type": "podCrashLoop", "injector": "fault-service", "live_status": "candidate"},
+    {"task_id": "t087", "case_id": "F052-podRestartFlapping.o5uu0m91594kn5slhis6pcm0i6", "fault_type": "podRestartFlapping", "injector": "chaos-mesh", "live_status": "candidate"},
+    {"task_id": "t095", "case_id": "F051-podPendingUnschedulable.1evc4kkcit5p9b0g0s121g8e16", "fault_type": "podPendingUnschedulable", "injector": "kubernetes-api", "live_status": "candidate"}
+  ]
+}

@@ -1,0 +1,38 @@
+apiVersion: lab.scenario/v1alpha1
+problem_id: rca100-like-payment-network-delay
+source_case_id: derived-network-delay
+reproduction_level: behavioral
+fault_type: networkLatency
+target: payment
+workload:
+  name: sre-demo
+  namespace: chaos-lab
+injector:
+  type: chaos-mesh
+  mode: network-delay
+  privileged_required: true
+  duration_seconds: 120
+  latency_ms: 250
+steady_state:
+  - metric: payment_p95_latency_ms
+    comparator: "<"
+    value: 100
+symptom_contract:
+  - source_type: metric
+    target: payment
+    signal: latency
+    expected: {comparator: ">=", value: 250}
+  - source_type: trace
+    target: payment
+    signal: duration
+    expected: {comparator: ">=", value: 250}
+stop_conditions:
+  - metric: payment_error_rate
+    comparator: ">"
+    value: 0.90
+cleanup:
+  ttl_seconds: 180
+  action: delete_experiment
+grading:
+  live_fault_class: networkLatency
+  default_status: offline-only-until-privileged-review

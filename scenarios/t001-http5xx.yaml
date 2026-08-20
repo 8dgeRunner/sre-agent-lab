@@ -1,0 +1,44 @@
+apiVersion: lab.scenario/v1alpha1
+problem_id: rca100-like-http5xx
+source_case_id: t001
+reproduction_level: behavioral
+fault_type: httpError5xx
+target: payment
+workload:
+  name: sre-demo
+  namespace: chaos-lab
+injector:
+  type: fault-service
+  mode: application
+  duration_seconds: 120
+  target_service: payment
+  fault_flag: invalid_token
+  note: "Business Invalid token semantics are injected by the synthetic payment service."
+steady_state:
+  - metric: payment_error_rate
+    comparator: "<"
+    value: 0.01
+  - metric: checkout_success_rate
+    comparator: ">"
+    value: 0.99
+symptom_contract:
+  - source_type: metric
+    target: payment
+    signal: error_rate
+    expected: {comparator: ">=", value: 0.40}
+  - source_type: log
+    target: payment
+    contains: "invalid token"
+  - source_type: topology
+    target: payment
+    contains: "checkout calls payment"
+stop_conditions:
+  - metric: payment_error_rate
+    comparator: ">"
+    value: 0.90
+cleanup:
+  ttl_seconds: 180
+  action: delete_experiment
+grading:
+  offline_case: t001
+  live_fault_class: httpError5xx

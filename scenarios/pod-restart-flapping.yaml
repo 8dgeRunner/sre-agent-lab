@@ -1,0 +1,34 @@
+apiVersion: lab.scenario/v1alpha1
+problem_id: rca100-like-pod-restart-flapping
+source_case_id: t087
+reproduction_level: behavioral
+fault_type: podRestartFlapping
+target: payment
+workload:
+  name: sre-demo
+  namespace: chaos-lab
+injector:
+  type: chaos-mesh
+  mode: pod-kill
+  duration_seconds: 60
+steady_state:
+  - metric: payment_ready_replicas
+    comparator: ">="
+    value: 1
+symptom_contract:
+  - source_type: event
+    target: payment
+    contains: "Killing"
+  - source_type: metric
+    target: payment
+    signal: restart
+    expected: {comparator: ">=", value: 1}
+stop_conditions:
+  - metric: payment_ready_replicas
+    comparator: "=="
+    value: 0
+cleanup:
+  ttl_seconds: 120
+  action: delete_experiment
+grading:
+  live_fault_class: podRestartFlapping

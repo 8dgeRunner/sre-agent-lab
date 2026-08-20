@@ -1,0 +1,15 @@
+[Unit]
+Description=SRE Agent Lab Platform API (user service)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/sre-agent-lab
+ExecStart=%h/sre-agent-lab/.venv/bin/python -m sre_lab.serve --host 127.0.0.1 --port 18080 --case-root %h/sre-agent-lab/data/rca100 --ground-truth-root %h/sre-agent-lab/data/rca100/answer_key --reports-dir %h/sre-agent-lab/reports/runs
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
