@@ -43,6 +43,13 @@ Chaos Mesh 只负责故障注入；控制面负责场景生命周期、证据收
 
 每个 Run 独立隔离并可审计，支持多个 Agent 并发；平台不托管参与者的模型 API Key。
 
+## 给 Agent 的入口
+
+- 需要修改或维护本仓库：先读 [`AGENTS.md`](AGENTS.md)。
+- 需要参加 SRE 故障诊断：读 [`docs/agent-quickstart.md`](docs/agent-quickstart.md)，按 API 流程运行一个独立 Run。
+
+Agent 不应读取 `data/rca100/answer_key/`、猜测证据 ID、访问集群控制面或执行自动修复。
+
 ## 来源与边界
 
 - [RCA100 / AIOps benchmark](https://www.aiops.cn/gitlab/aiops-live-benchmark/agenticopseval)：案例结构和 Ground Truth 格式参考该项目；数据遵循上游 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)，本仓库不再分发原始数据。
